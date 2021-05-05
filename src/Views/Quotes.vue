@@ -14,11 +14,11 @@
       </el-row>
       <el-tabs v-model="quoteStatus" type="card" @tab-click="handleClick">
         <el-tab-pane label="All" name="All"></el-tab-pane>
-        <el-tab-pane label="Draft" name="Draft"></el-tab-pane>
-        <el-tab-pane label="Sent" name="Sent"></el-tab-pane>
-        <el-tab-pane label="Declined" name="Declined"></el-tab-pane>
-        <el-tab-pane label="Accepted" name="Accepted"></el-tab-pane>
-        <el-tab-pane label="Invoiced" name="Invoiced"></el-tab-pane>
+        <el-tab-pane :label="getTabLabel.Draft" name="Draft"></el-tab-pane>
+        <el-tab-pane :label="getTabLabel.Sent" name="Sent"></el-tab-pane>
+        <el-tab-pane :label="getTabLabel.Declined" name="Declined"></el-tab-pane>
+        <el-tab-pane :label="getTabLabel.Accepted" name="Accepted"></el-tab-pane>
+        <el-tab-pane :label="getTabLabel.Invoiced" name="Invoiced"></el-tab-pane>
       </el-tabs>
       <el-table
         ref="multipleTable"
@@ -73,8 +73,14 @@ export default {
       multipleSelection: [],
       quoteStatus: "All",
       quoteListURL: "api/quotes",
-      quotesCount: 0,
       titleString: "Quotes",
+      quotesCount: {
+        Draft: 0,
+        Sent: 0,
+        Declined: 0,
+        Accepted: 0,
+        Invoiced: 0,
+      },
     };
   },
 
@@ -84,8 +90,14 @@ export default {
         params: this.axiosParams,
       })
       .then((response) => {
-        this.$data.tableData = response.data;
-        // console.log(response.data);
+        this.tableData = response.data;
+        if (this.tableData) {
+          for (const key of Object.keys(this.$data.quotesCount)) {
+            this.$data.quotesCount[key] = this.tableData.filter(
+              (item) => item.status === key
+            ).length;
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -111,6 +123,19 @@ export default {
         return this.tableData;
       }
     },
+    getQuotesCount: function () {
+      return this.$data.quotesCount;
+    },
+    getTabLabel: function () {
+      const tabLabel = {
+        Draft: `Darft (${this.$data.quotesCount.Draft})`,
+        Sent: `Sent (${this.$data.quotesCount.Sent})`,
+        Declined: `Declined (${this.$data.quotesCount.Declined})`,
+        Accepted: `Accepted (${this.$data.quotesCount.Accepted})`,
+        Invoiced: `Invoiced (${this.$data.quotesCount.Invoiced})`,
+      };
+      return tabLabel;
+    },
   },
 
   methods: {
@@ -135,9 +160,6 @@ export default {
         })
         .then((response) => {
           this.tableData = response.data;
-          if (response.data) {
-            this.quotesCount = response.data.length;
-          }
         })
         .catch((err) => {
           console.log(err);
