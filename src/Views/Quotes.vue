@@ -103,7 +103,13 @@ export default {
     //   return params;
     // },
     computedTableData: function () {
-      return this.tableData;
+      if (this.tableData && this.$data.quoteStatus != "All") {
+        return this.tableData.filter(
+          (item) => item.status === this.$data.quoteStatus
+        );
+      } else {
+        return this.tableData;
+      }
     },
   },
 
