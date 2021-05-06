@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <el-main>
-      <Title titleText="New Quote"></Title>
+    <Title titleText="New Quote"></Title>
+    <el-main
+      style="border: 2px solid; border-radius: 10px; border-style: outset"
+    >
       <el-row>
         <el-form
           ref="form"
@@ -223,7 +225,7 @@
         </div>
         <div class="col" id="sendBt">
           <el-button type="success">Send...</el-button>
-          <el-button type="info">Cancel</el-button>
+          <el-button type="info" @click="handleCancelClick()">Cancel</el-button>
         </div>
       </div>
     </el-main>
@@ -316,8 +318,7 @@ export default {
           .then((response) => {
             // console.log(response.data);
             if (response.data) {
-              console.log(response.data.id);
-              router.push({
+              router.replace({
                 name: "eidtquote",
                 params: { id: response.data.id },
               });
@@ -327,6 +328,11 @@ export default {
             console.log(err);
           });
       }
+    },
+    handleCancelClick: function() {
+      router.replace({
+        name: 'quotes'
+      })
     },
   },
 };

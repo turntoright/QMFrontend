@@ -16,9 +16,18 @@
         <el-tab-pane label="All" name="All"></el-tab-pane>
         <el-tab-pane :label="getTabLabel.Draft" name="Draft"></el-tab-pane>
         <el-tab-pane :label="getTabLabel.Sent" name="Sent"></el-tab-pane>
-        <el-tab-pane :label="getTabLabel.Declined" name="Declined"></el-tab-pane>
-        <el-tab-pane :label="getTabLabel.Accepted" name="Accepted"></el-tab-pane>
-        <el-tab-pane :label="getTabLabel.Invoiced" name="Invoiced"></el-tab-pane>
+        <el-tab-pane
+          :label="getTabLabel.Declined"
+          name="Declined"
+        ></el-tab-pane>
+        <el-tab-pane
+          :label="getTabLabel.Accepted"
+          name="Accepted"
+        ></el-tab-pane>
+        <el-tab-pane
+          :label="getTabLabel.Invoiced"
+          name="Invoiced"
+        ></el-tab-pane>
       </el-tabs>
       <el-table
         ref="multipleTable"
@@ -28,6 +37,7 @@
         border
         style="width: 1200px"
         @selection-change="handleSelectionChange"
+        @row-click="rowClicked"
       >
         <el-table-column
           v-if="canSelectRow"
@@ -65,6 +75,7 @@
 <script>
 import { getAPI } from "../axios-api";
 import Title from "../components/QuoteTitle";
+import router from "../routers";
 
 export default {
   data() {
@@ -167,6 +178,14 @@ export default {
     },
     canSelectRow() {
       return this.quoteStatus !== "All";
+    },
+    rowClicked(row) {
+      if (row && row.status === "Draft") {
+        router.push({
+          name: "eidtquote",
+          params: { id: row.id },
+        });
+      }
     },
   },
 };

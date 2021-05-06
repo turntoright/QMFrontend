@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <el-main>
-      <Title :titleText="getTitle"></Title>
+    <Title :titleText="getTitle"></Title>
+    <el-main
+      style="border: 2px solid; border-radius: 10px; border-style: outset"
+    >
       <el-row>
         <el-form
           ref="form"
@@ -86,7 +88,7 @@
         </div>
         <div class="col" id="sendBt">
           <el-button type="success">Send...</el-button>
-          <el-button type="info">Cancel</el-button>
+          <el-button type="info" @click="handleCancelClick()">Cancel</el-button>
         </div>
       </div>
     </el-main>
@@ -97,6 +99,7 @@
 import { getAPI } from "../axios-api";
 import Title from "../components/QuoteTitle";
 import QuoteItems from "../components/QuoteItems";
+import router from "../routers";
 
 export default {
   data() {
@@ -138,13 +141,10 @@ export default {
   },
 
   created() {
-    console.log(this.$route.params);
-    console.log(this.$route.params.id);
     if (this.$route.params && this.$route.params.id) {
       getAPI
         .get("api/quotes/" + this.$route.params.id)
         .then((response) => {
-          console.log(response.data);
           if (response.data) {
             this.$data.form = response.data;
             this.$data.itemTableData = response.data.items;
@@ -197,6 +197,11 @@ export default {
         };
         console.log(postData);
       }
+    },
+    handleCancelClick: function () {
+      router.replace({
+        name: "quotes",
+      });
     },
   },
 };
