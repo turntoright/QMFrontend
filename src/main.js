@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './routers'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import enLocale from 'element-ui/lib/locale/lang/en'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -12,7 +13,7 @@ import Footer from './components/Footer'
 import moment from 'moment'
 
 Vue.config.productionTip = false
-Vue.use(ElementUI, {size: 'small'});
+Vue.use(ElementUI, {locale: enLocale, size: 'small'});
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin

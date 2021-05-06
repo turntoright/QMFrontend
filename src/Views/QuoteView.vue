@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <el-main>
-      <Title titleText="New Quote"></Title>
+    <Title titleText="New Quote"></Title>
+    <el-main
+      style="border: 2px solid; border-radius: 10px; border-style: outset"
+    >
       <el-form ref="form" :model="form" label-width="80px" label-position="top">
         <el-col :span="5">
           <el-form-item label="Customer">
