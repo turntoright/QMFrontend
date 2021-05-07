@@ -22,12 +22,15 @@ Vue.use(IconsPlugin)
 Vue.use(require('vue-moment'))
 Vue.prototype.moment = moment
 Vue.filter('dateYMDHMSFormat',function(dateStr,pattern='YYYY-MM-DD HH:mm:ss'){
+  if (!dateStr) return null;
   return moment(dateStr).format(pattern);
 })
 Vue.filter('dateYMDFormat',function(dateStr,pattern='YYYY-MM-DD'){
+  if (!dateStr) return null;
   return moment(dateStr).format(pattern);
 })
 Vue.filter('dateDMMMYFormat',function(dateStr,pattern='DD MMM YYYY'){
+  if (!dateStr) return null;
   return moment(dateStr).format(pattern);
 })
 
