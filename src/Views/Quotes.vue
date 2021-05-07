@@ -35,7 +35,8 @@
         stripe
         tooltip-effect="dark"
         border
-        style="width: 1200px"
+        max-height="550px"
+        style="width: 100%"
         @selection-change="handleSelectionChange"
         @row-click="rowClicked"
       >
@@ -55,12 +56,12 @@
         </el-table-column>
         <el-table-column prop="create_date" label="Date" width="100">
           <template slot-scope="scope">
-            {{ scope.row.date | dateDMMMYFormat }}
+            {{ scope.row.create_date | dateDMMMYFormat }}
           </template>
         </el-table-column>
         <el-table-column prop="expiry_date" label="Expiry" width="100">
           <template slot-scope="scope">
-            {{ scope.row.date | dateDMMMYFormat }}
+            {{ scope.row.expiry_date | dateDMMMYFormat }}
           </template>
         </el-table-column>
         <el-table-column prop="status" label="Status" width="80">
