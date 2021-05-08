@@ -117,26 +117,7 @@ export default {
         items: [],
       },
       isShowTitle: false,
-      itemTableData: [
-        {
-          item_code: "item001",
-          description: "item description",
-          quantity: 5.0,
-          unit_price: 2.65,
-          disc: 0.0,
-          tax_rate: 0.0,
-          amount: 0.0,
-        },
-        {
-          item_code: "item002",
-          description: "item description",
-          quantity: 10.0,
-          unit_price: 3.5,
-          disc: 0.0,
-          tax_rate: 0.0,
-          amount: 0.0,
-        },
-      ],
+      itemTableData: [],
     };
   },
 
