@@ -4,14 +4,13 @@
       :data="itemTableData"
       style="width: 100%"
       max-height="500"
-      border
       :cell-style="{ padding: '0', height: '30px' }"
     >
       <el-table-column fixed prop="item_code" label="Item" width="160">
         <template slot-scope="scope">
           <el-input
             size="small"
-            style="text-align: center"
+            style="text-align: center;"
             v-model="scope.row.item_code"
             controls-position="right"
           ></el-input>

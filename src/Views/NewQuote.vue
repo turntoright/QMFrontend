@@ -68,141 +68,6 @@
       <el-row>
         <QuoteItems :propItems="getQuoteItems"></QuoteItems>
       </el-row>
-      <!-- <el-table
-        :data="itemTableData"
-        style="width: 100%"
-        max-height="500"
-        border
-        :cell-style="{ padding: '0', height: '30px' }"
-      >
-        <el-table-column fixed prop="item_code" label="Item" width="160">
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.item_code"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column
-          fixed
-          prop="description"
-          label="Description"
-          width="200"
-        >
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.description"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column fixed prop="quantity" label="Quantity" width="80">
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.quantity"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column fixed prop="unit_price" label="Unit Price" width="80">
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.unit_price"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column fixed prop="disc" label="Discount" width="80">
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.disc"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column fixed prop="tax_rate" label="Tax Rate" width="80">
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.tax_rate"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column fixed prop="amount" label="Amount" width="150">
-          <template slot-scope="scope">
-            <el-input
-              size="small"
-              style="text-align: center"
-              v-model="scope.row.amount"
-              controls-position="right"
-            ></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column fixed="right" label="" width="40">
-          <template slot-scope="scope">
-            <el-button
-              @click.native.prevent="deleteRow(scope.$index, itemTableData)"
-              type="text"
-              size="small"
-            >
-              X
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-row id="addNew" style="width: 100%">
-        <el-col id="addNewBt">
-          <el-dropdown
-            split-button
-            type="primary"
-            @click="addNewRow(itemTableData)"
-          >
-            + Add a new line
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                @click.native.prevent="addNewRow(itemTableData, 5)"
-                >Add 5</el-dropdown-item
-              >
-              <el-dropdown-item
-                @click.native.prevent="addNewRow(itemTableData, 10)"
-                >Add 10</el-dropdown-item
-              >
-              <el-dropdown-item
-                @click.native.prevent="addNewRow(itemTableData, 20)"
-                >Add 20</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </el-dropdown>
-        </el-col>
-      </el-row>
-      <el-row class="totalCount">
-        <el-col>
-          <el-row>
-            <el-col :span="3" :offset="17">Subtotal</el-col>
-            <el-col :span="3">0.00</el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="3" :offset="17">Total GST</el-col>
-            <el-col :span="3">0.00</el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="3" :offset="17">Total</el-col>
-            <el-col :span="3">0.00</el-col>
-          </el-row>
-        </el-col>
-      </el-row> -->
       <el-row>
         <el-form>
           <el-row>
@@ -255,24 +120,26 @@ export default {
       },
       isShowTitle: false,
       itemTableData: [
-        {
-          item_code: "item001",
-          description: "item description",
-          quantity: 5.0,
-          unit_price: 2.65,
-          disc: 0.0,
-          tax_rate: 0.0,
-          amount: 0.0,
-        },
-        {
-          item_code: "item002",
-          description: "item description",
-          quantity: 10.0,
-          unit_price: 3.5,
-          disc: 0.0,
-          tax_rate: 0.0,
-          amount: 0.0,
-        },
+        // {
+        //   item_code: "",
+        //   description: "",
+        //   quantity: 0.0,
+        //   unit_price: 0.0,
+        //   disc: 0.0,
+        //   tax_rate: 0.0,
+        //   amount: 0.0,
+        // },
+        // {
+        //   item_code: "",
+        //   description: "",
+        //   quantity: 0.0,
+        //   unit_price: 0.0,
+        //   disc: 0.0,
+        //   tax_rate: 0.0,
+        //   amount: 0.0,
+        // },
+        {},
+        {},
       ],
     };
   },
@@ -303,6 +170,17 @@ export default {
     },
     handleSaveClick: function () {
       if (this.$data.form) {
+        let postItemData = [];
+        for (const item of this.$data.itemTableData) {
+          if (item.item_code && item.amount) {
+            item.description = item.description ? item.description : "";
+            item.quantity = item.quantity ? item.quantity : 0;
+            item.unit_price = item.unit_price ? item.unit_price : 0;
+            item.disc = item.disc ? item.disc : 0;
+            item.tax_rate = item.tax_rate ? item.tax_rate : 0;
+            postItemData.push(item);          
+          }
+        }
         let postData = {
           customer_id: this.$data.form.customer_id,
           quote_number: this.$data.form.quote_number,
@@ -311,8 +189,9 @@ export default {
           title: this.$data.form.title,
           summary: this.$data.form.summary,
           terms: this.$data.form.terms,
-          items: this.$data.itemTableData,
+          items: postItemData,
         };
+        console.log(postData);
         getAPI
           .post("api/quotes/", postData)
           .then((response) => {
@@ -329,10 +208,10 @@ export default {
           });
       }
     },
-    handleCancelClick: function() {
+    handleCancelClick: function () {
       router.replace({
-        name: 'quotes'
-      })
+        name: "quotes",
+      });
     },
   },
 };
