@@ -29,6 +29,9 @@
           name="Invoiced"
         ></el-tab-pane>
       </el-tabs>
+      <el-row>
+        <TableHead> </TableHead>
+      </el-row>
       <el-table
         ref="multipleTable"
         :data="computedTableData"
@@ -77,6 +80,7 @@
 import { getAPI } from "../axios-api";
 import Title from "../components/QuoteTitle";
 import router from "../routers";
+import TableHead from "../components/TableHead";
 
 export default {
   data() {
@@ -118,6 +122,7 @@ export default {
 
   components: {
     Title,
+    TableHead,
   },
 
   computed: {
